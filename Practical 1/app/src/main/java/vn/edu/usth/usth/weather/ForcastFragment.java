@@ -62,18 +62,6 @@ public class ForcastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        View view = inflater.inflate(R.layout.fragment_forcast, container, false);
-//        view.setBackgroundColor(0x20FF0000);
-
-        LinearLayout view = new LinearLayout(getActivity());
-        view.setBackgroundColor(0x20FF0000);
-        view.setOrientation(LinearLayout.VERTICAL);
-
-        TextView thursday = new TextView(getActivity());
-        thursday.setText("Thursday is a rainy day");
-        ImageView rainy = new ImageView(getActivity());
-        rainy.setImageResource(R.drawable.rainy);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_forecast, container, false);
     }
 }
