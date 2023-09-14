@@ -1,6 +1,11 @@
 package vn.edu.usth.usth.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,35 +16,60 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-    }
-
-    @Override
-    protected void onStart() {
-        Log.i("Weather", "onStart() called");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.i("Weather", "onResume() called");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.i("Weather", "onPause() called");
-        super.onPause();
+        PagerAdapter adapter = new HomeFragmentPagerAdapter(
+                getSupportFragmentManager());
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setOffscreenPageLimit(3);
+        pager.setAdapter(adapter);
     }
 
     @Override
     protected void onStop() {
-        Log.i("Weather", "onStop() called");
         super.onStop();
+        Log.i("Weather","onStop() called");
     }
-
     @Override
     protected void onDestroy() {
-        Log.i("Weather", "onDestroy() called");
         super.onDestroy();
+        Log.i("Weather","onDestroy() called");
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Weather","onPause() called");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("Weather","onResume() called");
+    }
+
+    public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
+        private final int PAGE_COUNT = 3;
+        private String titles[] = new String[] { "Hanoi", "Paris", "Toulouse" };
+        public HomeFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+        @Override
+        public int getCount() {
+            return PAGE_COUNT; // number of pages for a ViewPager
+        }
+        @Override
+        public Fragment getItem(int page) {
+            switch (page) {
+                case 0:
+                    return new WeatherAndForecastFragment();
+                case 1:
+                    return new WeatherAndForecastFragment();
+                case 2:
+                    return new WeatherAndForecastFragment();
+            }
+            return new Fragment();
+        }
+        @Override
+        public CharSequence getPageTitle(int page) {
+            return titles[page];
+        }
+    }
+
 }
